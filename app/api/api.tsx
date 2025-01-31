@@ -20,7 +20,11 @@ const api:AxiosInstance = axios.create({
 
 
 api.interceptors.request.use(function (config) {
-    config.headers.Authorization = 'Bearer ' + SecureStore.getItem("accessToken") 
+    debugger
+    const token = SecureStore.getItem("accessToken") ;
+    if (token) {
+        config.headers["Cookie"] = `accessToken=${token};`;
+      }
     return config;
   }, function (error) {
    
@@ -46,7 +50,7 @@ api.interceptors.response.use(function(response) {
         }
     }
     else if(originalRequest._isRefreshRequest) {
-        router.push('/login')
+        router.push('/Login')
     }
     return Promise.reject(error)
 })
@@ -67,7 +71,8 @@ const refreshToken = async ()=> {
 
   const authApi = {
         login:(credentials: {username:string, password:string}) => {
-            return axios.post(baseURL+'/users/login',credentials,  {
+            console.log(baseURL)
+            return axios.post(baseURL+'/Auth/login',credentials,  {
                 headers: {
                     'Content-Type':'Application/json'
                 }
@@ -76,7 +81,7 @@ const refreshToken = async ()=> {
         },
 
         signup:(signupData: {email:string, username:string, password:string}) => {
-            return axios.post(baseURL+'/users/signup',signupData,  {
+            return axios.post(baseURL+'/Auth/signup',signupData,  {
                 headers: {
                     'Content-Type':'Application/json'
                 }

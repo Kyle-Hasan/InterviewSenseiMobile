@@ -40,6 +40,30 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="viewInterviews"
+        options={{
+          title: 'Interviews',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+      
+      name="createInterview"
+      options={{
+        title: 'Create Interview',
+       
+        tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+      }}
+    />
+      <Tabs.Screen
+      
+      name="interviews/[id]"
+      options={{
+        headerShown:false,
+        href: null,
+      }}
+    />
     </Tabs>
   );
 }

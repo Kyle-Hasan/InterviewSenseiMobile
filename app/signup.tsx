@@ -4,9 +4,10 @@ import axios from 'axios';
 import { AuthContext } from './context/AuthContext';
 import { User } from '@/types/userType';
 import { authApi } from './api/api';
+import { router } from 'expo-router';
 
 
-const SignupPage = ({ navigation }: any) => {
+const Signup = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -36,7 +37,7 @@ const SignupPage = ({ navigation }: any) => {
       const userData: User = response.data;
       if (userData) {
         authContext?.setLogin(userData);
-        navigation.navigate('viewInterviews');
+        router.push('/viewInterviews');
       }
     } catch (e) {
       setErrors('sign up failed, please try again ');
@@ -66,7 +67,7 @@ const SignupPage = ({ navigation }: any) => {
         style={styles.input}
       />
       <Button title="Sign Up" onPress={handleSubmit} />
-      <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+      <TouchableOpacity onPress={() => router.push('/Login')}>
         <Text style={styles.link}>Login</Text>
       </TouchableOpacity>
       {errors ? <Text style={styles.error}>{errors}</Text> : null}
@@ -74,7 +75,7 @@ const SignupPage = ({ navigation }: any) => {
   );
 };
 
-export default SignupPage;
+export default Signup;
 
 const styles = StyleSheet.create({
   container: {

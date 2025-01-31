@@ -26,7 +26,7 @@ const AuthProvider = ({children}: {children:ReactNode})=> {
         SecureStore.setItem("refreshToken",user.refreshToken)
         
         SecureStore.setItem("username",user.username)
-        SecureStore.setItem("userId",user.id?.toString())
+     
         setUserId(user.id)
     }
 

@@ -7,7 +7,7 @@ import { authApi } from './api/api';
 import {router } from "expo-router";
 
 
-const LoginPage = ({ navigation }: any) => {
+const Login = ({ navigation }: any) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState('');
@@ -20,13 +20,18 @@ const LoginPage = ({ navigation }: any) => {
       return;
     }
     try {
+      debugger
       const response = await authApi.login({ username, password });
       const userData: User = response.data;
+      console.log(userData)
+      debugger
       if (userData) {
         authContext?.setLogin(userData);
-        router.push('viewInterviews');
+        router.push('/(app)/(tabs)/createInterview');
       }
     } catch (e) {
+      debugger
+      console.log(e);
       setErrors('Login failed, please try again');
     }
   };
@@ -48,7 +53,7 @@ const LoginPage = ({ navigation }: any) => {
         style={styles.input}
       />
       <Button title="Login" onPress={handleSubmit} />
-      <TouchableOpacity onPress={() => router.push('Signup')}>
+      <TouchableOpacity onPress={() => router.push('/Signup')}>
         <Text style={styles.link}>No Account? Sign up</Text>
       </TouchableOpacity>
       {errors.length > 0 && <Text style={styles.error}>{errors}</Text>}
@@ -56,7 +61,7 @@ const LoginPage = ({ navigation }: any) => {
   );
 };
 
-export default LoginPage;
+export default Login;
 
 const styles = StyleSheet.create({
   container: {
